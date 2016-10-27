@@ -28,20 +28,10 @@ public class ClubForm extends Application{
 		clear.setPrefSize(100, 20);
 		bottom.getChildren().addAll(submit, clear);
 		
-		VBox left = new VBox();
-		left.setPadding(new Insets(10,250,10,10));
-		left.setSpacing(10);
-		left.setStyle("-fx-background-color: #FF0000;");
-		VBox right = new VBox();
-		right.setPadding(new Insets(10,10,10,250));
-		right.setSpacing(10);
-		right.setStyle("-fx-background-color: #00FFFF;");
-		//GridPane grid = new GridPane();
-		//grid.setStyle("-fx-background-color: #FFFF00;");
+		GridPane grid = new GridPane();
+		grid.setStyle("-fx-background-color: #FFFF00;");
 		border.setTop(top);
-		border.setLeft(left);
-		//border.setCenter(grid);
-		border.setRight(right);
+		border.setCenter(grid);
 		border.setBottom(bottom);
 		Scene scene = new Scene(border, 500, 700);
 		stage.setScene(scene);
