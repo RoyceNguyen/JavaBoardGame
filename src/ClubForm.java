@@ -30,11 +30,12 @@ public class ClubForm extends Application {
 		Label gameGenre = new Label("Board game genre youre interested in:");
 		//list view that lists board game genres 
 		ListView<String> genre = new ListView<String>();
+		genre.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		ObservableList<String> genres = FXCollections.observableArrayList(
 				"Strategy","Horror","Sci-fi","Trivia","Fantasy","Party","Math","Electronic","Children");
 		genre.setPrefHeight(100);
 		genre.setItems(genres);
-	
+		
 		VBox intro = new VBox();
 		intro.getChildren().addAll(tellus,introduction,gameGenre,genre);
 		Scene scene = new Scene(intro);
