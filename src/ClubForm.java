@@ -65,11 +65,11 @@ public class ClubForm extends Application {
 		grid.getChildren().add(phone);
 		
 		
-		Scene scene = new Scene(grid,500, 500);
+		/*Scene scene = new Scene(grid,500, 500);
 		primaryStage.setTitle("BOARDGAME");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
+		*/
 		
 		
 		
