@@ -1,3 +1,7 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,10 +60,27 @@ public class ClubForm extends Application{
 		
 		Button submit = new Button("Submit");
 		submit.setPrefSize(100, 20);
+		submit.setOnMouseClicked(new EventHandler<Event>(){
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				try (BufferedWriter bw = new BufferedWriter(new FileWriter("info.txt", true))) {
+			        bw.write(introduction.getText());
+			        bw.newLine();
+			        bw.write(genre.getSelectionModel().getSelectedItem());
+			        bw.newLine();
+			        
+			    } catch (IOException e) {
+			        e.printStackTrace();
+
+			    }
+			}
+			
+		});
 		Button clear = new Button("Clear");
 		clear.setPrefSize(100, 20);
 		clear.setOnMouseClicked(new EventHandler<Event>(){
-
 			@Override
 			public void handle(Event event) {
 				// TODO Auto-generated method stub
@@ -83,6 +104,7 @@ public class ClubForm extends Application{
 		stage.setScene(scene);
 		stage.show();
 	
+
 		}
 
 public static void main(String[] args) {
