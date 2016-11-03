@@ -1,11 +1,24 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -14,12 +27,8 @@ import javafx.stage.Stage;
 
 public class ClubForm extends Application {
 
-	public static void main(String[] args) {
-		Application.launch(args);
-	}
-
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage stage) throws Exception{
 		//Creating a GridPane container
 		GridPane grid = new GridPane();
 		grid.setPadding(new Insets(10, 10, 10, 10));
@@ -83,19 +92,87 @@ public class ClubForm extends Application {
 		GridPane.setConstraints(radio1, 2, 1);
 		GridPane.setConstraints(radio2, 2, 2);
 		
-		
-		
-		
-		Scene scene = new Scene(grid);
-		primaryStage.setTitle("BOARDGAME");
-		primaryStage.setScene(scene);
-		primaryStage.show();
-		
-		
-		
-		
-		
-		
-	}
+		//pane to hold the application 
+				BorderPane border = new BorderPane();
+				HBox top = new HBox();
+				top.setPadding(new Insets(60,60,60,60));
+				top.setSpacing(10);
+				top.setStyle("-fx-background-color: #336699;");
+				HBox bottom = new HBox();
+				bottom.setPadding(new Insets(10,10,10,10));
+				bottom.setSpacing(10);
+				bottom.setStyle("-fx-background-color: #333333;");
+				
+				//creating a label for texta area
+				Label tellus = new Label("Tell us about yourself:");
+				//text area for user to introduce themselves
+				TextArea introduction = new TextArea();
+				introduction.setPrefHeight(100);
+				//label for listview
+				Label gameGenre = new Label("Board game genre youre interested in:");
+				//list view that lists board game genres 
+				ListView<String> genre = new ListView<String>();
+				genre.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+				ObservableList<String> genres = FXCollections.observableArrayList(
+				"Strategy","Horror","Sci-fi","Trivia","Fantasy","Party","Math","Electronic","Children");
+				genre.setPrefHeight(100);
+				genre.setItems(genres);
+				VBox intro = new VBox();
+				intro.getChildren().addAll(grid,tellus,introduction,gameGenre,genre);
+				
+				Button submit = new Button("Submit");
+				submit.setPrefSize(100, 20);
+				submit.setOnMouseClicked(new EventHandler<Event>(){
 
-}
+					@Override
+					public void handle(Event event) {
+						try (BufferedWriter bw = new BufferedWriter(new FileWriter("info.txt", true))) {
+					        bw.write(introduction.getText());
+					        bw.newLine();
+					        bw.write(genre.getSelectionModel().getSelectedItem());
+					        bw.newLine();
+					    } catch (IOException e) {
+					        e.printStackTrace();
+					    }
+					}
+				});
+				Button clear = new Button("Clear");
+				clear.setPrefSize(100, 20);
+				clear.setOnMouseClicked(new EventHandler<Event>(){
+					@Override
+					public void handle(Event event) {
+						// TODO Auto-generated method stub
+						name.clear();
+						lastName.clear();
+						email.clear();
+						phone.clear();
+						radio1.setSelected(false);
+						radio2.setSelected(false);
+						introduction.clear();
+						genre.getSelectionModel().clearSelection();
+					}
+				}
+				);
+				bottom.getChildren().addAll(submit, clear);
+				bottom.setAlignment(Pos.CENTER);
+				
+				//GridPane grid = new GridPane();
+				intro.setStyle("-fx-background-color: #FFFF00;");
+				border.setTop(top);
+				//border.setCenter(grid);
+				border.setCenter(intro);
+				border.setBottom(bottom);
+				
+				Scene scene = new Scene(border, 500, 700);
+				stage.setScene(scene);
+				stage.show();
+			
+
+				}
+
+		public static void main(String[] args) {
+			// TODO Auto-generated method stub
+			Application.launch(args);
+		}
+			
+		}
