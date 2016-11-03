@@ -58,7 +58,6 @@ public class ClubForm extends Application{
 		bottom.setSpacing(10);
 		bottom.setStyle("-fx-background-color: #333333;");
 		
-
 		//create the submit and clear buttons
 
 		//creating a label for text area
@@ -90,11 +89,9 @@ public class ClubForm extends Application{
 			        bw.write(introduction.getText());
 			        bw.newLine();
 			        bw.write(genre.getSelectionModel().getSelectedItem());
-			        bw.newLine();
-			        
+			        bw.newLine();    
 			    } catch (IOException e) {
 			        e.printStackTrace();
-
 			    }
 			}
 			
@@ -109,9 +106,7 @@ public class ClubForm extends Application{
 				// TODO Auto-generated method stub
 				introduction.clear();
 				genre.getSelectionModel().clearSelection();
-
 			}
-			
 		}
 		);
 
@@ -134,8 +129,6 @@ public class ClubForm extends Application{
 		stage.setTitle("Board Game Club");
 		stage.setScene(scene);
 		stage.show();
-	
-
 		}
 
 public static void main(String[] args) {
