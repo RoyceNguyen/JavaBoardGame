@@ -168,22 +168,9 @@ public class ClubForm extends Application{
 			public void handle(Event event) {
 				// TODO Auto-generated method stub
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter("info.txt", true))) {
-					bw.write(name.getText());
+					bw.write("Member name : " + name.getText() + " " + lastName.getText() + ". Gender : " + radio1.getText() +" .To contact the member email them at " + email.getText() + " or call them at " + phone.getText() + ".");
 					bw.newLine();
-					bw.write(lastName.getText());
-					bw.newLine();
-					bw.write(email.getText());
-					bw.newLine();
-					bw.write(phone.getText());
-					bw.newLine();
-					bw.write(radio1.getText());
-					bw.newLine();
-					bw.write(radio2.getText());
-					bw.newLine();
-			        bw.write(introduction.getText());
-			        bw.newLine();
-			        bw.write(genre.getSelectionModel().getSelectedItem());
-			        bw.newLine();    
+					bw.write("The member introduced themselve as follow : " + introduction.getText() + " . and their favorite board game genre is " + genre.getSelectionModel().getSelectedItem());
 			    } catch (IOException e) {
 			        e.printStackTrace();
 			    }
