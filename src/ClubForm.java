@@ -1,6 +1,8 @@
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -24,6 +26,7 @@ public class ClubForm extends Application{
 
 	@Override
 	public void start(Stage stage) throws Exception {
+		//pane to hold the application 
 		BorderPane border = new BorderPane();
 		HBox top = new HBox();
 		top.setPadding(new Insets(60,60,60,60));
@@ -55,24 +58,31 @@ public class ClubForm extends Application{
 		submit.setPrefSize(100, 20);
 		Button clear = new Button("Clear");
 		clear.setPrefSize(100, 20);
+		clear.setOnMouseClicked(new EventHandler<Event>(){
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				introduction.clear();
+				genre.getSelectionModel().clearSelection();
+
+			}
+			
+		}
+		);
 		bottom.getChildren().addAll(submit, clear);
 		bottom.setAlignment(Pos.CENTER);
 		
 		GridPane grid = new GridPane();
-		grid.setStyle("-fx-background-color: #FFFF00;");
+		intro.setStyle("-fx-background-color: #FFFF00;");
 		border.setTop(top);
-		border.setCenter(grid);
+		border.setCenter(intro);
 		border.setBottom(bottom);
 		
 		Scene scene = new Scene(border, 500, 700);
 		stage.setScene(scene);
 		stage.show();
 	
-		// TODO Auto-generated method stub
-		
-		//Scene scene = new Scene(intro);
-		//primaryStage.setScene(scene);
-		//primaryStage.show();
 		}
 
 public static void main(String[] args) {
