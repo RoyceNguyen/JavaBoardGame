@@ -1,4 +1,21 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -41,31 +58,89 @@ public class ClubForm extends Application{
 		bottom.setSpacing(10);
 		bottom.setStyle("-fx-background-color: #333333;");
 		
+
 		//create the submit and clear buttons
+
+		//creating a label for text area
+		Label tellus = new Label("Tell us about yourself:");
+		//text area for user to introduce themselves
+		TextArea introduction = new TextArea();
+		introduction.setPrefHeight(100);
+		//label for listview
+		Label gameGenre = new Label("Board game genre youre interested in:");
+		//list view that lists board game genres 
+		ListView<String> genre = new ListView<String>();
+		genre.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		ObservableList<String> genres = FXCollections.observableArrayList(
+		"Strategy","Horror","Sci-fi","Trivia","Fantasy","Party","Math","Electronic","Children");
+		genre.setPrefHeight(100);
+		genre.setItems(genres);
+		VBox intro = new VBox();
+		intro.getChildren().addAll(tellus,introduction,gameGenre,genre);
+		
+
 		Button submit = new Button("Submit");
 		submit.setPrefSize(100, 20);
+		submit.setOnMouseClicked(new EventHandler<Event>(){
+
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				try (BufferedWriter bw = new BufferedWriter(new FileWriter("info.txt", true))) {
+			        bw.write(introduction.getText());
+			        bw.newLine();
+			        bw.write(genre.getSelectionModel().getSelectedItem());
+			        bw.newLine();
+			        
+			    } catch (IOException e) {
+			        e.printStackTrace();
+
+			    }
+			}
+			
+		});
+
 		Button clear = new Button("Clear");
 		clear.setPrefSize(100, 20);
 		//add buttons to the hbox
+		clear.setOnMouseClicked(new EventHandler<Event>(){
+			@Override
+			public void handle(Event event) {
+				// TODO Auto-generated method stub
+				introduction.clear();
+				genre.getSelectionModel().clearSelection();
+
+			}
+			
+		}
+		);
+
 		bottom.getChildren().addAll(submit, clear);
 		bottom.setAlignment(Pos.CENTER);
 		
 		//create grid pane for the central content of the app
-		GridPane grid = new GridPane();
-		grid.setStyle("-fx-background-color: #FFFF00;");
+		//GridPane grid = new GridPane();
+
+		//grid.setStyle("-fx-background-color: #FFFF00;");
 		//add the hboxes and grid pane to the border pane
+
+		intro.setStyle("-fx-background-color: #FFFF00;");
+
 		border.setTop(top);
-		border.setCenter(grid);
+		border.setCenter(intro);
 		border.setBottom(bottom);
 		//set the scene with the border pane
 		Scene scene = new Scene(border, 500, 700);
 		stage.setTitle("Board Game Club");
 		stage.setScene(scene);
 		stage.show();
-	}
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
+
+		}
+
+public static void main(String[] args) {
+	// TODO Auto-generated method stub
+	Application.launch(args);
+}
 	
 }
