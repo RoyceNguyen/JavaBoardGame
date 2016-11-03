@@ -2,6 +2,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -42,6 +44,13 @@ public class ClubForm extends Application{
 		//set the size of the title image view
 		imgVw.setFitWidth(300);
 		imgVw.setFitHeight(100);
+		//create animation for image
+		FadeTransition ft = new FadeTransition(Duration.millis(4000), imgVw);
+		ft.setFromValue(0.1);
+		ft.setToValue(1.0);
+		ft.setCycleCount(1);
+		ft.setAutoReverse(false);
+		ft.play();
 		
 		//create top hbox for the title image to sit in
 		HBox top = new HBox();
