@@ -1,4 +1,5 @@
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -15,6 +16,8 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -51,6 +54,11 @@ public class ClubForm extends Application{
 		ft.setCycleCount(1);
 		ft.setAutoReverse(false);
 		ft.play();
+		//create sound when app launches	    
+	    //String voices = "voices.mp3";
+	    Media sound = new Media(new File("voices.mp3").toURI().toString());
+	    MediaPlayer mediaPlayer = new MediaPlayer(sound);
+	    mediaPlayer.play();
 		
 		//create top hbox for the title image to sit in
 		HBox top = new HBox();
