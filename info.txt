@@ -1,4 +1,0 @@
-Member name :  . Gender : javafx.scene.control.ToggleGroup@17ff6583 .To contact the member email them at  or call them at .
-The member introduced themselve as follow :  . and their favorite board game genre is null
-Member name :  . Gender : RadioButton@7860a2f3[styleClass=radio-button]'Male' .To contact the member email them at  or call them at .
-The member introduced themselve as follow :  . and their favorite board game genre is null

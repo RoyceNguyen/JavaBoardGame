@@ -11,6 +11,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SelectionMode;
@@ -168,9 +169,9 @@ public class ClubForm extends Application{
 			public void handle(Event event) {
 				// TODO Auto-generated method stub
 				try (BufferedWriter bw = new BufferedWriter(new FileWriter("info.txt", true))) {
-					bw.write("Member name : " + name.getText() + " " + lastName.getText() + ". Gender : " + group.getSelectedToggle() +" .To contact the member email them at " + email.getText() + " or call them at " + phone.getText() + ".");
+					bw.write("Member name : " + name.getText() + " " + lastName.getText() + ". Gender: " + ((Labeled) group.getSelectedToggle()).getText() +". To contact the member email them at " + email.getText() + " or call them at " + phone.getText() + ".");
 					bw.newLine();
-					bw.write("The member introduced themselve as follow : " + introduction.getText() + " . and their favorite board game genre is " + genre.getSelectionModel().getSelectedItem());
+					bw.write("The member's introduction: " + introduction.getText() + ". Their favorite board game genre is " + genre.getSelectionModel().getSelectedItem());
 					bw.newLine();
 			    } catch (IOException e) {
 			        e.printStackTrace();
